@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            Kullanıcı Girişi
+        </h1>
+    </section>
+
+    <div class="login-box">
+
+        <div class="login-box-body">
+            {{ text_note }}
+            <form method="post">
+                <div class="form-group has-feedback">
+                    <input type="text" name="username" class="form-control" placeholder="Kullanıcı Adı">
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" name="password" class="form-control" placeholder="Parola">
+                </div>
+
+                <div class="form-group pull-right">
+                    <button type="submit" class="btn btn-primary">Giriş</button>
+                </div>
+            </form>
+
+            <a href="{% url "userprofile:signup" %}" class="text-center">Yeni Kullanıcı</a>
+
+        </div>
+    </div>
+{% endblock %}

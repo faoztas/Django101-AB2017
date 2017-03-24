@@ -1,0 +1,112 @@
+{% load staticfiles %}
+<head>
+    {% include 'static_base.html' %}
+</head>
+
+<body class="skin-blue fixed">
+<header class="header">
+    <a href="/" class="logo">Collectivework</a>
+    <nav class="navbar navbar-static-top" role="navigation">
+    </nav>
+</header>
+
+<div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <section class="sidebar">
+            <div class="user-panel">
+                {% if user and not user.is_anonymous %}
+                    <div class="user-panel">
+                        {% if user.userprofile and user.userprofile.profile_photo %}
+                            <div class="pull-left image">
+                                <img src="/{{ user.userprofile.profile_photo.url }}" class="img-circle" alt="Fotograf">
+                            </div>
+                        {% endif     %}
+                        <div class="pull-left info">
+                            <p>{{ user.username }} </p>
+                            <a href="{% url 'userprofile:logout' %}"><i class="fa fa-circle text-success"></i>Çıkış Yap</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="pull-left info">
+                        <a href="{% url 'userprofile:login' %}?next={{ request.path }}"><i
+                                class="fa fa-user text-success"></i>Kullanıcı Girişi</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <ul class="sidebar-menu">
+                {% if user and not user.is_anonymous %}
+                    <li class="active">
+                        <a href="{% url 'userprofile:update' %}">
+                            <i class="fa fa-edit"></i>
+                            <span>Profil Güncelleme</span>
+                        </a>
+                    </li>
+
+                    <li class="active">
+                        <a href="#">
+                            <i class="fa fa-envelope-o"></i>
+                            <span>Mesajlar</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="active" style="list-style-type: none;">
+                            <li class="active"><a href="{% url 'postman:inbox' %}"><i
+                                    class="fa fa-inbox"></i><span> Gelen Kutusu</span></a></li>
+                            <li class="active"><a href="{% url 'postman:sent' %}"><i
+                                    class="fa fa-plane"></i><span> Gönderilenler</span></a></li>
+                            <li class="active"><a href="{% url 'postman:write' %}"><i
+                                    class="fa fa-pencil"></i><span> Olustur</span></a></li>
+                            <li class="active"><a href="{% url 'postman:archive' %}"><i
+                                    class="fa fa-floppy-o"></i><span> Arşiv</span></a></li>
+                            <li class="active"><a href="{% url 'postman:trash' %}"><i class="fa fa-trash-o"></i><span> Çöp</span></a>
+                            </li>
+                        </ul>
+                    </li>
+            {% comment %}
+                    <li class="active">
+                        <a href="{% url 'ticket:create_ticket' %}">
+                            <i class="fa fa-edit"></i>
+                            <span>Yeni İş Oluştur</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="{% url 'ticket:list_my_ticket' %}">
+                            <i class="fa fa-list-alt"></i>
+                            <span>İşlerim</span>
+                        </a>
+                    </li>
+                    {% if user.is_staff %}
+                        <li class="active">
+                            <a href="{% url 'ticket:list_moderation_requests' %}">
+                                <i class="fa fa-tasks"></i>
+                                <span>Moderasyondaki isler</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% endcomment %}
+                {% endif %}
+
+                <li class="active">
+                    <a href="{% url 'site_rules' %}">
+                        <i class="fa fa-briefcase"></i>
+                        <span>Kullanım Kuralları</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{% url 'help' %}">
+                        <i class="fa fa-info"></i>
+                        <span>Yardım</span>
+                    </a>
+                </li>
+
+            </ul>
+        </section>
+    </aside>
+    <aside class="right-side">
+        {% block content %}
+        {% endblock %}
+    </aside>
+</div>
+
+
+</body>
