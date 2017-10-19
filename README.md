@@ -1,4 +1,4 @@
-# Django101-AB2017
+# Django101-AB2017 Etkinlik Notları
 Examples for Python and Django 
 
 django-admin startproject proje_adi --> Django projesi oluşturma kodu
